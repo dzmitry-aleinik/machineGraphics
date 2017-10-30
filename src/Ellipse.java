@@ -4,6 +4,7 @@ import java.util.ArrayList;
 /**
  * Created by HP on 19.10.2017.
  */
+// https://books.google.by/books?id=09wawLhff4QC&pg=PA56&lpg=PA56&dq=ellipse+computer+graphics&source=bl&ots=JgpO8_cWeL&sig=pEnGTIPhfrngQt8DOE4oEQaR1Wo&hl=ru&sa=X&ved=0ahUKEwjVn9rQl5jXAhURY1AKHQ5lB3A4ChDoAQglMAA#v=onepage&q=ellipse%20computer%20graphics&f=false
 public class Ellipse implements  Shape {
     private int xC;
     private int yC;
@@ -38,45 +39,50 @@ public class Ellipse implements  Shape {
 
     public ArrayList<Point> formShape (){
         ArrayList<Point> result = new ArrayList<>();
-        int x,y,xChange,yChange, EllipseError,StoppingX,StoppingY;
-        x = a;
-        y=0;
-        EllipseError = 0;
-        xChange = a*a*(1-2*b);
-        yChange = b*b;
-
-        while (-2*x*b*b >= 2*y*a*a){
-            y++;
-            EllipseError+= yChange;
-            yChange += 2*a*a;
-            if( (2*EllipseError +xChange) >0 ){
-                x--;
-                EllipseError += xChange;
-                xChange += 2*b*b;
+        double x =0;
+        double y =b;
+        double d = b*b - a*a*b + a*a/4;
+        result.add(new Point ((int)x,(int)y));
+        while ( a*a*(y-1/2) >b*b*(x+1)){
+            if(d<0){
+                d = d + b*b*(2*x+3);
+                x++;
             }
-
-            result.add(new Point(x,y));
-        }
-
-        x =0 ;
-        y= a;
-        xChange = a*a;
-        yChange =  b*b*(1-2*a);
-        EllipseError = 0 ;
-        while(-2*x*b*b <= 2*y*a*a ){
-
-
-            x++;
-            EllipseError+=xChange;
-            xChange+=2*b*b;
-            if( (2*EllipseError + yChange)>0){
+            else{
+                d = d+ b*b*(2*x+3) + a*a*(-2*y + 2);
+                x++;
                 y--;
-                EllipseError+=yChange;
-                yChange += 2*a*a;
             }
-            result.add(new Point (x,y));
+            int xRes = (int)x;
+            int yRes = (int)y;
+            result.add(new Point(xRes + xC,yRes + yC));
+            result.add(new Point (xRes + xC ,-yRes + yC));
+            result.add(new Point (-xRes + xC,-yRes + yC));
+            result.add(new Point (-xRes + xC,yRes + yC));
         }
 
+
+        d = b*b*(x+1/2)*(x+1/2) + a*a*(y-1)*(y-1) -a*a*b*b;
+        while (y>0){
+
+
+            if(d<0){
+                d += b*b*(2*x +2) + a*a*(-2*y+3);
+                x++;
+                y--;
+
+            }else {
+                d = d +a*a*(-2*y + 3);
+                y--;
+
+            }
+            int xRes = (int)x;
+            int yRes = (int)y;
+            result.add(new Point(xRes + xC,yRes + yC));
+            result.add(new Point (xRes + xC ,-yRes + yC));
+            result.add(new Point (-xRes + xC,-yRes + yC));
+            result.add(new Point (-xRes + xC,yRes + yC));
+        }
 
         return result;
     }
