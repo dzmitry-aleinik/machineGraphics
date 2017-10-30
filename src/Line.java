@@ -38,7 +38,7 @@ public class Line implements Shape {
         return result;
     }
 
-    public ArrayList<Point> getLineBrezenhem() {
+    public ArrayList<Point> formShape() {
         ArrayList<Point> result = new ArrayList<>();
 
 

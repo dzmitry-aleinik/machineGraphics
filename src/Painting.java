@@ -20,16 +20,18 @@ public class Painting extends JPanel  {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(!start) {
-            Ellipse ellipse = (Ellipse)model.getShape();
-            //g.drawLine(line.getxBegin(), line.getyBegin(), line.getxEnd(), line.getyEnd());
-             ArrayList<Point> lineDDA= ellipse.getEllipse();
-            for (int i=0; i<lineDDA.size()-1;i++){
-                image.setRGB(lineDDA.get(i).x,lineDDA.get(i).y,200);
+
+
+
+            if (model.isHandled()) {
+                ArrayList <Point> newShape =model.getShape();
+                for (int i = 0; i < newShape.size() - 1; i++) {
+                    image.setRGB(newShape.get(i).x, newShape.get(i).y, 200);
+                }
             }
             g.drawImage(image, 0, 0, null);
 
-        }
-        start=false;
+
+
     }
 }
