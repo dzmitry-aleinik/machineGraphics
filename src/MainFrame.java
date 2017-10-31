@@ -11,7 +11,7 @@ import java.awt.event.MouseEvent;
 public class MainFrame extends JFrame {
     public MainFrame(){
         this.setVisible(true);
-        this.setSize(new Dimension(1000,1000));
+        this.setSize(new Dimension(1900,1900));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         Model model =new Model();
@@ -21,13 +21,21 @@ public class MainFrame extends JFrame {
 
         setJMenuBar(menuBar);
         JMenu jMenu =new JMenu("Shapes");
+        JMenu jMenuTools = new JMenu("Tools");
         menuBar.add(jMenu);
+        menuBar.add(jMenuTools);
+
         JMenuItem menuLine = new JMenuItem("Line");
         JMenuItem menuCircle = new JMenuItem("Circle");
         JMenuItem menuEllipse = new JMenuItem("Ellipse");
+        JMenuItem menuFilling = new JMenuItem("Filling");
+
+
+
         jMenu.add(menuLine);
         jMenu.add(menuCircle);
         jMenu.add(menuEllipse);
+        jMenuTools.add(menuFilling);
         menuLine.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -46,7 +54,13 @@ public class MainFrame extends JFrame {
                 model.setEllipse();
             }
         });
+        menuFilling.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.setFilling();
 
+            }
+        });
 
 
 
@@ -56,17 +70,35 @@ public class MainFrame extends JFrame {
             @Override
             public void mouseReleased(MouseEvent e) {
 
-                if (model.isEllipse() || model.isCircle() || model.isLine()) {
-                    model.setShapeEnd(e.getX(), e.getY() - 30);
-                    repaint();
+                if(!model.isFilling()) {
+                    if (model.isEllipse() || model.isCircle() || model.isLine()) {
+                        model.setShapeEnd(e.getX(), e.getY() - 30);
+                        repaint();
+                    }
                 }
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
 
-                if(model.isLine()   || model.isCircle() || model.isEllipse()) {
-                    model.setShapeBegin(e.getX(), e.getY() - 30);
+
+
+                if(!model.isFilling()) {
+                    if (model.isLine() || model.isCircle() || model.isEllipse()) {
+                        model.setShapeBegin(e.getX(), e.getY() - 30);
+                    }
+                }
+
+            }
+
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (model.isFilling()){
+                    model.setFillingComponent(new Filling(model,e.getX(),e.getY()));
+                    model.setFillingProcessed(true);
+                    model.resetFilling();
+                    repaint();
                 }
 
             }

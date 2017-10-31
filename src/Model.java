@@ -5,18 +5,43 @@ import java.util.ArrayList;
  * Created by HP on 11.10.2017.
  */
 public class Model {
+
+     private boolean edges [][] = new boolean[2000][2000];
     private Shape shape;
     private  boolean isLine = false;
      private boolean isCircle=  false;
      private boolean isEllipse= false;
     private boolean handled = false;
+    private boolean  filling = false;
+    private boolean fillingProcessed=false;
+    private Filling fillingComponent;
 
+
+    public void setHandled(boolean h){
+        this.handled = h;
+    }
+    public boolean isFillingProcessed() {
+        return fillingProcessed;
+    }
+
+    public void setFillingProcessed(boolean fillingProcessed) {
+        this.fillingProcessed = fillingProcessed;
+    }
+
+    public void setFillingComponent(Filling fillingComponent) {
+        this.fillingComponent = fillingComponent;
+
+    }
+
+    public  Filling getFillingComponent(){
+        return  fillingComponent;
+    }
     public boolean isHandled(){
         return handled;
     }
     public void setShapeBegin(int x ,int y){
         shape.setBegin(x,y);
-        handled = true;
+
     }
     public void setShapeEnd(int x ,int y){
 
@@ -24,7 +49,7 @@ public class Model {
         handled = true;
     }
     public ArrayList<Point> getShape(){
-        handled = false;
+
         return shape.formShape();
 
     }
@@ -56,6 +81,26 @@ public class Model {
         isCircle = false;
         isEllipse = true;
     }
+
+    public void setEdges(int x, int y){
+        edges[x][y]=true;
+    }
+
+    public  boolean [][] getEdges(){
+        return  edges;
+    }
+
+    public void setFilling (){
+        filling = true;
+    }
+    public void resetFilling(){
+        filling = false;
+    }
+
+    public boolean isFilling (){
+        return filling;
+    }
+
 
 
 
