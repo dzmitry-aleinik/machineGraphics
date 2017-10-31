@@ -27,6 +27,16 @@ public class Circle implements Shape {
         ArrayList<Point> result = new ArrayList<>();
         double xCur =  0 ;
         double yCur = R;
+        int x = (int)xCur;
+        int y = (int)yCur;
+        result.add( new Point (x + xCenter,y + yCenter));
+        result.add( new Point (y + xCenter,  x + yCenter ));
+        result.add( new Point (y + xCenter, -x + yCenter));
+        result.add( new Point(x + xCenter, -y + yCenter));
+        result.add( new Point(-x +xCenter,-y + yCenter));
+        result.add( new Point(-y + xCenter, -x + yCenter));
+        result.add( new Point(-y + xCenter, x + yCenter));
+        result.add( new Point (-x + xCenter, y + yCenter));
         double delta =  3 - 2*yCur;
         while(xCur < yCur ){
             xCur += 1;
@@ -39,8 +49,8 @@ public class Circle implements Shape {
                 yCur -= 1;
                 delta += 4*(xCur - yCur) + 10;
             }
-            int x = (int)xCur;
-            int y = (int)yCur;
+             x = (int)xCur;
+             y = (int)yCur;
 
             result.add( new Point (x + xCenter,y + yCenter));
             result.add( new Point (y + xCenter,  x + yCenter ));

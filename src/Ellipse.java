@@ -42,7 +42,13 @@ public class Ellipse implements  Shape {
         double x =0;
         double y =b;
         double d = b*b - a*a*b + a*a/4;
-        result.add(new Point ((int)x,(int)y));
+        int xRes = (int)x;
+        int yRes = (int)y;
+        result.add(new Point (xRes + xC, yRes + yC));
+        result.add(new Point(xRes + xC,yRes + yC));
+        result.add(new Point (xRes + xC ,-yRes + yC));
+        result.add(new Point (-xRes + xC,-yRes + yC));
+        result.add(new Point (-xRes + xC,yRes + yC));
         while ( a*a*(y-1/2) >b*b*(x+1)){
             if(d<0){
                 d = d + b*b*(2*x+3);
@@ -53,8 +59,8 @@ public class Ellipse implements  Shape {
                 x++;
                 y--;
             }
-            int xRes = (int)x;
-            int yRes = (int)y;
+             xRes = (int)x;
+             yRes = (int)y;
             result.add(new Point(xRes + xC,yRes + yC));
             result.add(new Point (xRes + xC ,-yRes + yC));
             result.add(new Point (-xRes + xC,-yRes + yC));
@@ -76,8 +82,8 @@ public class Ellipse implements  Shape {
                 y--;
 
             }
-            int xRes = (int)x;
-            int yRes = (int)y;
+            xRes = (int)x;
+             yRes = (int)y;
             result.add(new Point(xRes + xC,yRes + yC));
             result.add(new Point (xRes + xC ,-yRes + yC));
             result.add(new Point (-xRes + xC,-yRes + yC));

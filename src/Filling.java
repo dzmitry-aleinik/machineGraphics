@@ -22,6 +22,7 @@ public class Filling {
 
     public LinkedList<Point>  BoundaryFill(){
 
+
         boolean [][] edges = model.getEdges();
 
         LinkedList<Point> process = new LinkedList<>();
@@ -29,38 +30,58 @@ public class Filling {
         process.add(new Point (x,y));
         while (!process.isEmpty()){
             Point point = process.poll();
-            for (int i =0,xCur=point.x-1, yCur=point.y-1; i<3;i++,xCur++) {
-                if (xCur > 0 && xCur < xSize && yCur > 0 && yCur < ySize) {
-                    if (!edges[xCur][yCur]) {
-                        result.add(new Point(xCur, yCur));
-                        process.add(new Point(xCur, yCur));
-                        edges[xCur][yCur]=true;
-                    }
+             int xCur = point.x;
+             int yCur = point.y-1;
+            if (xCur > 0 && xCur < xSize && yCur > 0 && yCur < ySize) {
+                if (!edges[xCur][yCur]) {
+                    result.add(new Point(xCur, yCur));
+                    process.add(new Point(xCur, yCur));
+                    edges[xCur][yCur]=true;
+                }
+
+            }
+            xCur = point.x;
+            yCur = point.y+1;
+            if (xCur > 0 && xCur < xSize && yCur > 0 && yCur < ySize) {
+                if (!edges[xCur][yCur]) {
+                    result.add(new Point(xCur, yCur));
+                    process.add(new Point(xCur, yCur));
+                    edges[xCur][yCur]=true;
+                }
+
+            }
+            xCur = point.x-1;
+            yCur = point.y;
+            if (xCur > 0 && xCur < xSize && yCur > 0 && yCur < ySize) {
+                if (!edges[xCur][yCur]) {
+                    result.add(new Point(xCur, yCur));
+                    process.add(new Point(xCur, yCur));
+                    edges[xCur][yCur]=true;
+                }
+                else {
+                    System.out.println(xCur + " " + yCur);
                 }
             }
-            for (int i=0, xCur= point.x-1, yCur = point.y+1; i<3;i++,xCur++){
-                if (xCur > 0 && xCur < xSize && yCur > 0 && yCur < ySize) {
-                    if (!edges[xCur][yCur]) {
-                        result.add(new Point(xCur, yCur));
-                        process.add(new Point(xCur, yCur));
-                        edges[xCur][yCur] = true;
-                    }
+            xCur = point.x + 1;
+            yCur = point.y;
+            if (xCur > 0 && xCur < xSize && yCur > 0 && yCur < ySize) {
+                if (!edges[xCur][yCur]) {
+                    result.add(new Point(xCur, yCur));
+                    process.add(new Point(xCur, yCur));
+                    edges[xCur][yCur]=true;
                 }
+
             }
 
-            for (int i=0, xCur= point.x-1,yCur=point.y ; i<2;i++,xCur+=2){
-                if (xCur > 0 && xCur < xSize && yCur > 0 && yCur < ySize) {
-                    if (!edges[xCur][yCur]) {
-                        result.add(new Point(xCur, yCur));
-                        process.add(new Point(xCur, yCur));
-                        edges[xCur][yCur] = true;
-                    }
-                }
-            }
+
+
+
+
 
 
 
         }
+
         return result;
     }
 }

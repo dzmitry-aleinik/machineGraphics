@@ -95,7 +95,7 @@ public class MainFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (model.isFilling()){
-                    model.setFillingComponent(new Filling(model,e.getX(),e.getY()));
+                    model.setFillingComponent(new Filling(model,e.getX(),e.getY()-30));
                     model.setFillingProcessed(true);
                     model.resetFilling();
                     repaint();
