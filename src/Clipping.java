@@ -37,11 +37,11 @@ public class Clipping {
 
 
    public boolean findInnerClipping(ArrayList<Integer> codes ){
-        int xL = codes.get(0);
-        int yL = codes.get(1);
+       double xL = codes.get(0);
+       double yL = codes.get(1);
 
-        int xR = codes.get(3);
-        int yR = codes.get(4);
+       double xR = codes.get(3);
+        double yR = codes.get(4);
         int codeL = codes.get(2);
         int codeR = codes.get(5);
 
@@ -51,26 +51,30 @@ public class Clipping {
            if(codeL!=0){
                code = codeL;
                if ((code & LEFT) !=0){
+
+                   yL = (yR - yL) / (xR - xL) * (xLeft - xL) + yL ;
                    xL = xLeft;
-                   yL = xL*(yR - yL)/(xR-xL);
 
                }
                else if ((code & RIGHT)!=0){
+
+                   yL = (yR - yL)/(xR - xL) * (xRight - xL) + yL;
                    xL = xRight;
-                   yL = xL*(yR - yL)/(xR-xL);
 
 
 
                }
                else if ( (code & BOTTOM) !=0){
+
+                   xL = (xR - xL) / (yR - yL) *  ( yLeft- yL) + xL;
                    yL=yLeft;
-                   xL = yL * (xR - xL)/ (yR - yL);
 
                }
                else if ( (code & TOP)!=0){
-                   yL=yRight;
-                   xL = yL * (xR - xL)/ (yR - yL);
 
+                   xL = (xR - xL) / (yR - yL) * (yRight - yL ) + xL;
+
+                   yL=yRight;
                }
                StringBuilder newCodeL =new StringBuilder();
                if (xL < xLeft){
@@ -99,21 +103,25 @@ public class Clipping {
 
 
                if ((code & LEFT) != 0) {
+
+                   yR = (yR - yL) / (xR - xL) * (xLeft - xL) + xL;
                    xR = xLeft;
-                   yR = xR * (yR - yL) / (xR - xL);
 
                } else if ((code & RIGHT) != 0) {
+
+                   yR = (yR - yL) / (xR - xL) * (xRight - xL) + xL;
                    xR = xRight;
-                   yR = xR * (yR - yL) / (xR - xL);
 
 
                } else if ((code & BOTTOM) != 0) {
+
+                   xR = (xR - xL) / (yR - yL) * (yLeft - yL) +xL;
                    yR = yLeft;
-                   xR = yR * (xR - xL) / (yR - yL);
 
                } else if ((code & TOP) != 0) {
+
+                   xR = (xR - xL) / (yR - yL) * (yRight - yL) +xL;
                    yR = yRight;
-                   xR = yR * (xR - xL) / (yR - yL);
 
                }
                StringBuilder newCodeR =new StringBuilder();
@@ -145,10 +153,10 @@ public class Clipping {
        if (codeL==0 && codeR==0){
 
 
-           codes.set(0,xL);
-           codes.set(1,yL);
-           codes.set(2,xR);
-           codes.set(3,yR);
+           codes.set(0,(int)xL);
+           codes.set(1,(int)yL);
+           codes.set(2,(int)xR);
+           codes.set(3,(int)yR);
            codes.set(4,codeL);
            codes.set(5,codeR);
            return  true;
