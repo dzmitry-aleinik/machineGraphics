@@ -11,6 +11,18 @@ public class Line implements Shape {
     private int yBegin;
     private int yEnd;
 
+    public  Line clone(){
+        return  new Line (xBegin, yBegin, xEnd, yEnd);
+    }
+
+    public Line(int xBegin, int yBegin, int xEnd, int yEnd){
+        this.xBegin = xBegin;
+        this.yBegin = yBegin;
+        this.xEnd = xEnd;
+        this.yEnd = yEnd;
+
+    }
+    public Line  (){}
     public void setBegin(int x, int y) {
         this.xBegin = x;
         this.yBegin = y;
@@ -112,4 +124,13 @@ public class Line implements Shape {
     public void draw() {
     }
 
+    @Override
+    public String toString() {
+        return "Line{" +
+                "xBegin=" + xBegin +
+                ", xEnd=" + xEnd +
+                ", yBegin=" + yBegin +
+                ", yEnd=" + yEnd +
+                '}';
+    }
 }

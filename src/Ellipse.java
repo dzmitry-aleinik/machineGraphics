@@ -18,6 +18,22 @@ public class Ellipse implements  Shape {
     private int b;
 
 
+    public Ellipse(int xC, int yC, int xB, int yB, int yE, int xE, int a, int b) {
+        this.xC = xC;
+        this.yC = yC;
+        this.xB = xB;
+        this.yB = yB;
+        this.yE = yE;
+        this.xE = xE;
+        this.a = a;
+        this.b = b;
+    }
+
+    public Ellipse clone(){
+        return  new Ellipse(xC,yC,xB,yB,yE,xE,a,b);
+    }
+
+
     public Ellipse (){}
 
     public void setBegin(int x, int y){

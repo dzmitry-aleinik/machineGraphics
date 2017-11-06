@@ -6,16 +6,48 @@ import java.util.ArrayList;
  */
 public class Model {
 
-     private boolean edges [][] = new boolean[2000][2000];
+
+    private ArrayList<Shape> drawnShapes = new ArrayList<>();
+
+
+
+    private boolean edges [][] = new boolean[2000][2000];
     private Shape shape;
     private  boolean isLine = false;
-     private boolean isCircle=  false;
-     private boolean isEllipse= false;
+    private boolean isCircle=  false;
+    private boolean isEllipse= false;
     private boolean handled = false;
     private boolean  filling = false;
     private boolean fillingProcessed=false;
     private Filling fillingComponent;
+    private Clipping clippingComponent;
 
+    private boolean clipping = false;
+    private boolean clippingProcessed = false;
+
+    public Clipping getClippingComponent() {
+        return clippingComponent;
+    }
+
+    public ArrayList<Shape> formClipping(){
+        return  clippingComponent.clippingAlgorithm();
+    }
+
+    public boolean isClipping() {
+        return clipping;
+    }
+
+    public void setClipping(boolean clipping) {
+        this.clipping = clipping;
+    }
+
+    public boolean isClippingProcessed() {
+        return clippingProcessed;
+    }
+
+    public void setClippingProcessed(boolean clippingProcessed) {
+        this.clippingProcessed = clippingProcessed;
+    }
 
     public void setHandled(boolean h){
         this.handled = h;
@@ -28,6 +60,13 @@ public class Model {
         this.fillingProcessed = fillingProcessed;
     }
 
+
+    public void addShape(Shape shape){
+        this.drawnShapes.add(shape);
+    }
+    public ArrayList<Shape>  getDrawnShapes(){
+        return drawnShapes;
+    }
     public void setFillingComponent(Filling fillingComponent) {
         this.fillingComponent = fillingComponent;
 
@@ -50,6 +89,10 @@ public class Model {
     }
     public ArrayList<Point> getShape(){
 
+
+
+        this.drawnShapes.add(shape.clone());
+        System.out.println(drawnShapes);
         return shape.formShape();
 
     }
@@ -90,19 +133,24 @@ public class Model {
         return  edges;
     }
 
-    public void setFilling (){
-        filling = true;
+    public void setFilling (boolean filling){
+        this.filling = filling;
     }
-    public void resetFilling(){
-        filling = false;
-    }
+
 
     public boolean isFilling (){
         return filling;
     }
 
+    public void setClippingComponent(Clipping clippingComponent) {
+        this.clippingComponent = clippingComponent;
+    }
 
+    public void setClippingBegin(int x, int y){
 
-
-
+        clippingComponent.setBegin(x,y);
+    }
+    public void setClippingEnd(int x, int y){
+        clippingComponent.setEnd(x,y);
+    }
 }

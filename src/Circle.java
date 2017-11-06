@@ -9,6 +9,16 @@ public class Circle implements Shape {
     private int xCenter;
     private int yCenter;
     private double R;
+    public Circle(int xCenter, int yCenter, double R ){
+        this.xCenter = xCenter;
+        this.yCenter = yCenter;
+        this.R = R;
+
+    }
+    public Circle(){}
+    public Circle clone (){
+        return  new Circle(xCenter,yCenter,R);
+    }
 
     public void setBegin(int x, int y){
         this.xCenter = x;

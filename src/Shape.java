@@ -8,5 +8,6 @@ public interface Shape {
     public void  setBegin(int x , int y);
     public void setEnd(int x, int y);
     public ArrayList<Point> formShape();
+    public Shape clone();
 
 }

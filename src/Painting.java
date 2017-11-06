@@ -29,19 +29,28 @@ public class Painting extends JPanel  {
                 while(!fillingPoints.isEmpty()){
                    Point point = fillingPoints.poll();
                     image.setRGB(point.x,point.y,200);
+
                 }
 
                 model.setFillingProcessed(false);
             }
             else if (model.isHandled()) {
+
+
                 ArrayList <Point> newShape =model.getShape();
+
                 model.setHandled(false);
 
                 for (int i = 0; i < newShape.size() - 1; i++) {
                      model.setEdges(newShape.get(i).x,newShape.get(i).y);
                      image.setRGB(newShape.get(i).x, newShape.get(i).y, 200);
                 }
+                System.out.println(model.getDrawnShapes());
+
             }
+
+
+
 
 
             g.drawImage(image, 0, 0, null);

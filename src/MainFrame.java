@@ -29,6 +29,9 @@ public class MainFrame extends JFrame {
         JMenuItem menuCircle = new JMenuItem("Circle");
         JMenuItem menuEllipse = new JMenuItem("Ellipse");
         JMenuItem menuFilling = new JMenuItem("Filling");
+        JMenuItem menuClipping = new JMenuItem("Clipping");
+
+
 
 
 
@@ -36,6 +39,22 @@ public class MainFrame extends JFrame {
         jMenu.add(menuCircle);
         jMenu.add(menuEllipse);
         jMenuTools.add(menuFilling);
+
+        jMenuTools.add(menuClipping);
+
+
+
+        JDialog dialog = new JDialog();
+
+        dialog.setSize(new Dimension(1900,1900));
+        ClippingPanel clippingPanel =new ClippingPanel(model);
+
+        dialog.add(clippingPanel);
+        dialog.repaint();
+        dialog.setModal(true);
+       // dialog.setVisible(true);
+
+
         menuLine.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -57,8 +76,15 @@ public class MainFrame extends JFrame {
         menuFilling.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.setFilling();
+                model.setFilling(true);
 
+            }
+        });
+
+        menuClipping.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.setClipping(true);
             }
         });
 
@@ -70,11 +96,24 @@ public class MainFrame extends JFrame {
             @Override
             public void mouseReleased(MouseEvent e) {
 
-                if(!model.isFilling()) {
-                    if (model.isEllipse() || model.isCircle() || model.isLine()) {
+                if((!model.isClipping()) &&  !model.isFilling() && (model.isEllipse() || model.isCircle() || model.isLine())) {
+
+
                         model.setShapeEnd(e.getX(), e.getY() - 30);
                         repaint();
-                    }
+
+                } else if (model.isClipping()){
+
+
+
+                    model.setClippingEnd(e.getX(),e.getY() - 30);
+
+                    model.setClipping(false);
+                    model.setClippingProcessed(true);
+                    dialog.repaint();
+                    dialog.setVisible(true);
+                    model.setClipping(false);
+
                 }
             }
 
@@ -83,10 +122,13 @@ public class MainFrame extends JFrame {
 
 
 
-                if(!model.isFilling()) {
-                    if (model.isLine() || model.isCircle() || model.isEllipse()) {
+                if( !model.isClipping() && !model.isFilling() && (model.isLine() || model.isCircle() || model.isEllipse())) {
+
                         model.setShapeBegin(e.getX(), e.getY() - 30);
-                    }
+
+                }  else if (model.isClipping()){
+                    model.setClippingComponent(new Clipping(model));
+                    model.setClippingBegin(e.getX(),e.getY() - 30);
                 }
 
             }
@@ -97,7 +139,7 @@ public class MainFrame extends JFrame {
                 if (model.isFilling()){
                     model.setFillingComponent(new Filling(model,e.getX(),e.getY()-30));
                     model.setFillingProcessed(true);
-                    model.resetFilling();
+                    model.setFilling(false);
                     repaint();
                 }
 
