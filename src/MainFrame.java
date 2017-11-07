@@ -30,6 +30,8 @@ public class MainFrame extends JFrame {
         JMenuItem menuEllipse = new JMenuItem("Ellipse");
         JMenuItem menuFilling = new JMenuItem("Filling");
         JMenuItem menuClipping = new JMenuItem("Clipping");
+        JMenuItem menuBezier = new JMenuItem("BezierCurve");
+
 
 
 
@@ -41,6 +43,8 @@ public class MainFrame extends JFrame {
         jMenuTools.add(menuFilling);
 
         jMenuTools.add(menuClipping);
+        jMenuTools.add(menuBezier);
+
 
 
 
@@ -85,6 +89,17 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 model.setClipping(true);
+
+
+            }
+        });
+        menuBezier.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                 int number=  Integer.parseInt(JOptionPane.showInputDialog("Input the number of the point",3));
+                model.getBezierComponent().setSize(number);
+                 model.setBezier(true);
             }
         });
 
@@ -136,17 +151,25 @@ public class MainFrame extends JFrame {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (model.isFilling()){
-                    model.setFillingComponent(new Filling(model,e.getX(),e.getY()-30));
+                if (model.isFilling()) {
+                    model.setFillingComponent(new Filling(model, e.getX(), e.getY() - 30));
                     model.setFillingProcessed(true);
                     model.setFilling(false);
                     repaint();
-                }
+                } else if (model.isBezier()) {
+                    if (model.getBezierComponent().getSize() > model.getBezierComponent().numberPoint()) {
+                        model.getBezierComponent().addPoint(new Point(e.getX(), e.getY() - 30));
+                        if (model.getBezierComponent().getSize() == model.getBezierComponent().numberPoint()){
+                            model.setBezierProcessed(true);
+                            repaint();
+                        }
+                    }
 
+                }
             }
         });
 
-    }
+        }
 
     public static void main(String[] args) {
         new MainFrame();

@@ -33,6 +33,7 @@ public class Painting extends JPanel  {
                 }
 
                 model.setFillingProcessed(false);
+                model.setFilling(false);
             }
             else if (model.isHandled()) {
 
@@ -47,6 +48,16 @@ public class Painting extends JPanel  {
                 }
                 System.out.println(model.getDrawnShapes());
 
+            }
+             else if (model.isBezierProcessed()){
+
+                ArrayList<Point> curveBezier = model.getBezierComponent().getBezierCurve(0.0001);
+                for (int i =0 ; i< curveBezier.size();i++){
+                    image.setRGB(curveBezier.get(i).x,curveBezier.get(i).y,200);
+                }
+
+                model.setBezierProcessed(false);
+                model.setBezier(false);
             }
 
 

@@ -21,6 +21,10 @@ public class Model {
     private boolean fillingProcessed=false;
     private Filling fillingComponent;
     private Clipping clippingComponent;
+    private BezierCurve BezierComponent = new BezierCurve();
+    private boolean bezier = false;
+    private boolean bezierProcessed = false;
+
 
     private boolean clipping = false;
     private boolean clippingProcessed = false;
@@ -31,6 +35,30 @@ public class Model {
 
     public ArrayList<Shape> formClipping(){
         return  clippingComponent.clippingAlgorithm();
+    }
+
+    public BezierCurve getBezierComponent() {
+        return BezierComponent;
+    }
+
+    public void setBezierComponent(BezierCurve bezierComponent) {
+        BezierComponent = bezierComponent;
+    }
+
+    public boolean isBezier() {
+        return bezier;
+    }
+
+    public void setBezier(boolean bezier) {
+        this.bezier = bezier;
+    }
+
+    public boolean isBezierProcessed() {
+        return bezierProcessed;
+    }
+
+    public void setBezierProcessed(boolean bezierProcessed) {
+        this.bezierProcessed = bezierProcessed;
     }
 
     public boolean isClipping() {
